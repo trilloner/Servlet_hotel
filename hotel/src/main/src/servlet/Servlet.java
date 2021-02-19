@@ -1,6 +1,5 @@
 package servlet;
 
-import command.Command;
 import command.CommandContainer;
 
 import javax.servlet.ServletException;
@@ -8,33 +7,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.stream.Stream;
 
 public class Servlet extends HttpServlet {
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter pw = resp.getWriter();
 
-        pw.println("<html>");
-        pw.println("<h1>Home page</h1>");
-        pw.println("</html>");
-
+        process(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        process(req, resp);
     }
 
-    private void process(HttpServletRequest req, HttpServletResponse resp) {
+    private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        String commandName = req.getParameter("command");
+        String commandName = req.getRequestURI();
 
-        Command command = CommandContainer.get(commandName);
+        String command = CommandContainer.get(commandName).execute(req);
 
+
+        if (command.contains("redirect:")) {
+            resp.sendRedirect(command.replace("redirect:/", "/"));
+        } else {
+            req.getRequestDispatcher(command).forward(req, resp);
+        }
 
 
     }

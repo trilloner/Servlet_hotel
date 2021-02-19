@@ -9,16 +9,16 @@ public class CommandContainer {
 
 
     static {
-        commands.put("login", new Login());
+        commands.put("/login", new Login());
 
-        commands.put("exception", new ExceptionCommand());
+        commands.put("/exception", new ExceptionCommand());
     }
 
 
     public static Command get(String commandName) {
         if (commandName == null || !commands.containsKey(commandName)) {
 
-            return commands.get("exception");
+            return commands.get("/exception");
         }
         return commands.get(commandName);
     }
