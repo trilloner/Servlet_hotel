@@ -1,8 +1,9 @@
-<!DOCTYPE web-app PUBLIC
-        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
-        "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
     <display-name>Archetype Created Web Application</display-name>
     <servlet>
         <servlet-name>Servlet</servlet-name>
@@ -28,6 +29,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>LocalizationFilter</filter-name>
+        <filter-class>filter.LocalizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LocalizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -40,6 +50,25 @@
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>UserPathFilter</filter-name>
+        <filter-class>filter.UserPathFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserPathFilter</filter-name>
+        <url-pattern>/order/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AdminPathFilter</filter-name>
+        <filter-class>filter.AdminPathFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminPathFilter</filter-name>
+        <url-pattern>/admin</url-pattern>
+    </filter-mapping>
+
     <listener>
         <listener-class>listener.SessionListener</listener-class>
     </listener>
