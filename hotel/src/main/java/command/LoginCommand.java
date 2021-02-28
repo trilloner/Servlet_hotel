@@ -7,16 +7,19 @@ import service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Login command class
+ */
 public class LoginCommand extends Command {
     static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private final UserService userService = new UserService();
 
     @Override
     public String execute(HttpServletRequest request) {
+        logger.info("Executing login command");
         try {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            //TODO check logout
             CommandUtility.logoutUser(request, username);
             if (username == null || password == null || CommandUtility.checkUserIsLogged(request, username)) {
                 return "/login.jsp";
@@ -28,7 +31,7 @@ public class LoginCommand extends Command {
             return "redirect:/";
         } catch (Exception e) {
             request.getSession().setAttribute("errorMessage", e.getMessage());
-            logger.info("Cannot create user {}", e.getMessage());
+            logger.error("Cannot create user {}", e.getMessage());
 
             return "/login.jsp";
         }

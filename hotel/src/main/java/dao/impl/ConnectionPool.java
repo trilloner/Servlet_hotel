@@ -1,6 +1,5 @@
 package dao.impl;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,9 +1,7 @@
 package dao.impl;
 
 import dao.UserDao;
-import dao.impl.ConnectionPool;
 import dao.mapper.UserMapper;
-import model.user.Roles;
 import model.user.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,25 +48,17 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, entity.getName());
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, "ROLE_USER");
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows == 0) {
-                System.out.println("Error User can`t be created");
-            } else {
-                System.out.println("User successfully created");
-                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        entity.setId(generatedKeys.getLong(1));
-                    } else {
-                        System.out.println("No id obtained. Cannot create");
-                    }
-                }
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                entity.setId(generatedKeys.getLong(1));
             }
+            return Optional.of(entity);
         } catch (SQLException ex) {
             logger.warn("User already exist : {}", ex.getMessage());
         }
 
-        return Optional.of(entity);
+        return Optional.empty();
     }
 
     @Override

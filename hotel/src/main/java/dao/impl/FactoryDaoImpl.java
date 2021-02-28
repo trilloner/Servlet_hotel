@@ -7,6 +7,9 @@ import dao.UserDao;
 
 import java.sql.Connection;
 
+/**
+ * Implementing the Factory pattern to implement DAO 
+ */
 public class FactoryDaoImpl extends FactoryDao {
 
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();

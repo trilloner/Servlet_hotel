@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Filter for the distribution of roles for the admin
+ */
 public class AdminPathFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,12 +24,10 @@ public class AdminPathFilter implements Filter {
         HttpSession session = request.getSession();
         User admin = (User) session.getAttribute("user");
         if (admin != null && admin.getRole().equals("ROLE_ADMIN")) {
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            response.setHeader("Pragma", "no-cache");
-            response.setDateHeader("Expires", 0);
+
             filterChain.doFilter(request, response);
-        }else{
-            response.sendRedirect("/logout");
+        } else {
+            response.sendRedirect("/hotel/logout");
         }
     }
 

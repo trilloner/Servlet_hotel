@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RoomService {
 
-    private FactoryDao factoryDao = FactoryDao.getInstance();
+    private final FactoryDao factoryDao = FactoryDao.getInstance();
 
 
     public List<Room> findAllRooms() {
@@ -18,9 +18,9 @@ public class RoomService {
         }
     }
 
-    public RoomDto findPaginated(int page, int pageSize, String field) {
+    public RoomDto findPaginated(int page, int pageSize, String field, String direction) {
         try (RoomDao roomDao = factoryDao.createRoomDao()) {
-            return roomDao.findPaginatedRooms(page, pageSize, field);
+            return roomDao.findPaginatedRooms(page, pageSize, field, direction);
         }
     }
 }

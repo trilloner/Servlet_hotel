@@ -5,6 +5,9 @@ import model.room.RoomBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+/**
+ * Room Mapper to convert room from result set
+ */
 
 public class RoomMapper {
 

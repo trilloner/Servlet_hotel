@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+/**
+ * Filter for the distribution of roles for the user
+ */
 public class UserPathFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -19,11 +21,8 @@ public class UserPathFilter implements Filter {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("user") == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("/hotel/login");
         } else {
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            response.setHeader("Pragma", "no-cache");
-            response.setDateHeader("Expires", 0);
             filterChain.doFilter(request, response);
         }
 

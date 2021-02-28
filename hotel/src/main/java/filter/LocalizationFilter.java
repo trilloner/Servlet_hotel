@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * Localization filter
+ */
 public class LocalizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

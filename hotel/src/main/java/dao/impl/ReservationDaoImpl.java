@@ -20,8 +20,8 @@ public class ReservationDaoImpl implements ReservationDao {
 
     private final Logger logger = LogManager.getLogger(ReservationDaoImpl.class);
     private final Connection connection;
-    private ResourceBundle bundle = ResourceBundle.getBundle("sql");
-    private ReservationMapper reservationMapper = new ReservationMapper();
+    private final ResourceBundle bundle = ResourceBundle.getBundle("sql");
+    private final ReservationMapper reservationMapper = new ReservationMapper();
 
     public ReservationDaoImpl(Connection connection) {
         this.connection = connection;
@@ -29,7 +29,6 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public Optional<Reservation> create(Reservation entity) {
-        ResultSet set = null;
         try {
             PreparedStatement statement = connection.prepareStatement(bundle.getString("reservation.create"),
                     Statement.RETURN_GENERATED_KEYS);
@@ -40,10 +39,7 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setLong(5, entity.getUserByUserId().getId());
             statement.setString(6, entity.getStatus());
             statement.executeUpdate();
-            set = statement.getGeneratedKeys();
-            if (set.next()) {
-                entity.setId(set.getLong("id"));
-            }
+
             return Optional.of(entity);
 
 
@@ -94,7 +90,7 @@ public class ReservationDaoImpl implements ReservationDao {
             while (set.next()) {
                 Reservation reservation = reservationMapper.getReservationFromResultSet(set);
                 reservation.setRoomId(new RoomBuilder()
-                        .setId(Long.parseLong(set.getString("room_id")))
+                        .setId(set.getLong("room_id"))
                         .setName(set.getString("name"))
                         .build());
                 reservationList.add(reservation);
@@ -116,10 +112,9 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setString(2, Status.CONFIRMED.getName());
             statement.setLong(3, entity.getId());
             statement.executeUpdate();
-        } catch (SQLException ex) {
+        }  catch (SQLException ex) {
             logger.warn("Reservation could not be created: {}", ex.getMessage());
         }
-
     }
 
     @Override

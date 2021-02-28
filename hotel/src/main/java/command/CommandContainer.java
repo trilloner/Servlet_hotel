@@ -1,8 +1,12 @@
 package command;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
+/**
+ * Command container class for storing commands
+ */
 public class CommandContainer {
 
     private static final Map<String, Command> commands = new TreeMap<>();
@@ -32,11 +36,8 @@ public class CommandContainer {
 
 
     public static Command get(String commandName) {
-        if (commandName == null || !commands.containsKey(commandName)) {
-
-            return commands.get("/exception");
-        }
-        return commands.get(commandName);
+        String name = Optional.of(commandName.replace("/hotel/", "/")).orElse("/exception");
+        return commands.get(name);
     }
 
 

@@ -9,13 +9,16 @@ import util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Registration command class for registration new user
+ */
 public class RegisterCommand extends Command {
     private final Logger logger = LogManager.getLogger(RegisterCommand.class);
     private final UserService userService = new UserService();
 
     @Override
     public String execute(HttpServletRequest request) {
-
+        logger.info("Executing register command");
         try {
             if (request.getParameter("username") == null) {
                 return "/registration.jsp";

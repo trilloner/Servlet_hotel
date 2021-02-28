@@ -21,15 +21,15 @@
         <%@include file="styles/register.css" %>
     </style>
 
-    <title>Login</title>
+    <title><fmt:message key="login.title"/></title>
 </head>
 <body>
 <header>
     <nav class="top-menu">
         <ul class="menu-main">
-            <li class="left-item"><a href="?lang=en">EN</a></li>
-            <li class="left-item"><a href="?lang=ru">RU</a></li>
-            <li class="right-item"><a href="">
+            <li class="left-item"><a href="${pageContext.request.contextPath}/login?lang=en">EN</a></li>
+            <li class="left-item"><a href="${pageContext.request.contextPath}/login?lang=ru">RU</a></li>
+            <li class="right-item"><a href="/login">
                 <fmt:message key="main.menu.book"/>
             </a></li>
         </ul>
@@ -37,10 +37,11 @@
 </header>
 
 <div class="loginForm">
-    <form action="/login" method="post">
-        <div><label> User Name : <input id="name" type="text" name="username"/> </label></div>
-        <div><label> Password: <input id="password" type="password" name="password"/> </label></div>
-        <div><input id="button" type="submit" value="Sign In"/></div>
+    <form action="${pageContext.request.contextPath}/login" method="post">
+        <div><label> <fmt:message key="login.email"/></label> <input id="name" type="text" name="username"/></div>
+        <div><label> <fmt:message key="login.password"/> </label><input id="password" type="password" name="password"/>
+        </div>
+        <div><input id="button" type="submit" value=<fmt:message key="login.login"/>></div>
         <c:if test="${errorMessage != null}">
             <div><c:out value="${errorMessage}"/></div>
         </c:if>

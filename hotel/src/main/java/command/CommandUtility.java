@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.HashSet;
 
+/**
+ * Utility class for commands
+ */
 public class CommandUtility {
     static boolean checkUserIsLogged(HttpServletRequest request, String userName) {
         HashSet<String> loggedUsers = (HashSet<String>) request.getSession().getServletContext()

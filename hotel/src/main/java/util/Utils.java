@@ -1,7 +1,13 @@
 package util;
 
+import model.reservation.Reservation;
 import model.user.User;
 
+import java.time.LocalDate;
+
+/**
+ * Util class for data validation
+ */
 public class Utils {
 
     public static boolean registrationValidation(User user) throws Exception {
@@ -16,4 +22,19 @@ public class Utils {
         }
         return true;
     }
+
+    public static boolean reservationValidation(Reservation reservation) throws Exception {
+        LocalDate today = LocalDate.now();
+        if (reservation.getCheckIn().isBefore(today))
+            throw new Exception("Must be future or present date");
+
+        if (!reservation.getCheckOut().isAfter(today))
+            throw new Exception("Must be future date");
+
+        if (reservation.getNumberOfSeats() <= 0)
+            throw new Exception("Number of seats must be more than 0");
+
+        return true;
+    }
+
 }

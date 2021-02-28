@@ -3,6 +3,9 @@ package filter;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Encoding filter. UTF-8 access
+ */
 public class EncodingFilter implements Filter {
 
     @Override

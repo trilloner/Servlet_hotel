@@ -5,6 +5,9 @@ import model.user.UserBuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+/**
+ * User Mapper to convert user from result set
+ */
 
 public class UserMapper {
 

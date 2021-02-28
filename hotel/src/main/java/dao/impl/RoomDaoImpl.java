@@ -56,21 +56,18 @@ public class RoomDaoImpl implements RoomDao {
 
     @Override
     public void update(Room entity) {
-
     }
 
     @Override
     public void delete(int id) {
-
     }
 
     @Override
     public void close() {
-
     }
 
     @Override
-    public RoomDto findPaginatedRooms(int page, int sizeOfPage, String field) {
+    public RoomDto findPaginatedRooms(int page, int sizeOfPage, String field, String direction) {
         PreparedStatement statement;
         ResultSet set;
         RoomDto roomDto = new RoomDto();
@@ -78,7 +75,8 @@ public class RoomDaoImpl implements RoomDao {
         try {
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-            statement = connection.prepareStatement("select *, (select count(*) from room) as count from room order by " + field + " limit ? offset ?");
+            statement = connection.prepareStatement("select *, (select count(*) from room) as count from room " +
+                    "order by " + field + ' ' + direction + " limit ? offset ?");
 
             statement.setInt(1, sizeOfPage);
             statement.setInt(2, sizeOfPage * (page - 1));

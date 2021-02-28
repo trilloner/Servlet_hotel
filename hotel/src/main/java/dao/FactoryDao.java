@@ -2,6 +2,9 @@ package dao;
 
 import dao.impl.FactoryDaoImpl;
 
+/**
+ * Factory pattern for DAO
+ */
 public abstract class FactoryDao {
     private static FactoryDao daoFactory;
 

@@ -7,43 +7,44 @@
 <html>
 <head>
     <link href="/styles/main.css" rel="stylesheet" type="text/css">
-    <title>Hotel</title>
-    <!--    <script type="text/javascript" th:src="@{/js/logout.js}"></script>-->
+    <title><fmt:message key="main.title"/></title>
     <style>
         <%@include file="styles/main.css" %>
+
         body {
-            background: url(/img/background.png) no-repeat;
+            background-image: url("img/background.png");
             background-size: 100%;
             width: 100%;
         }
     </style>
 </head>
-<body style="''">
+<body>
 <header>
     <nav class="top-menu">
         <ul class="menu-main">
             <div>
-                <li class="left-item"><a href="?lang=en">EN</a></li>
-                <li class="left-item"><a href="?lang=ru">RU</a></li>
-                <c:if test="${sessionScope.user != null}">
-                    <li class="right-item"><a href="/cabinet">
+                <li class="left-item"><a href="${pageContext.request.contextPath}?lang=en">EN</a></li>
+                <li class="left-item"><a href="${pageContext.request.contextPath}?lang=ru">RU</a></li>
+                <c:if test="${sessionScope.user == null}">
+                    <li class="right-item"><a href="${pageContext.request.contextPath}/registration">
+                        <fmt:message key="main.menu.book"/>
+                    </a></li>
+                </c:if>
+                <c:if test="${sessionScope.user != null && sessionScope.user.role.equals('ROLE_USER')}">
+                    <li class="right-item"><a href="${pageContext.request.contextPath}/cabinet">
                         <fmt:message key="main.menu.cabinet"/>
                     </a></li>
-                </c:if>
-                <c:if test="${sessionScope.user != null}">
-                    <li class="right-item"><a href="/rooms">
+                    <li class="right-item"><a href="${pageContext.request.contextPath}/rooms">
                         <fmt:message key="main.menu.rooms"/>
                     </a></li>
-                </c:if>
-                <c:if test="${sessionScope.user != null}">
-                    <li class="right-item"><a href="/order">
+                    <li class="right-item"><a href="${pageContext.request.contextPath}/order">
                         <fmt:message key="main.menu.book"/>
                     </a></li>
-
                 </c:if>
-                <c:if test="${sessionScope.user == null}">
-                    <li class="right-item"><a href="/registration">
-                        <fmt:message key="main.menu.book"/>
+
+                <c:if test="${sessionScope.user.role.equals('ROLE_ADMIN')}">
+                    <li class="right-item"><a href="${pageContext.request.contextPath}/admin">
+                        <fmt:message key="main.menu.cabinet"/>
                     </a></li>
                 </c:if>
 
@@ -56,7 +57,6 @@
     <div id="text">
         <h2><fmt:message key="main.welcome"/></h2>
         <h2></h2>
-        <!--            <a href="#" class="btn btn-primary btn-lg">Book Now</a>-->
 
     </div>
 

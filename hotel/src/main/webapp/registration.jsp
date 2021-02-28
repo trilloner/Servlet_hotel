@@ -15,22 +15,20 @@
 <head>
     <link href="/styles/login.css" rel="stylesheet">
     <link href="/styles/register.css" rel="stylesheet">
-    <title>Spring Security Example</title>
+    <title><fmt:message key="registration.title"/></title>
     <style>
         <%@include file="styles/login.css" %>
-    </style>
-    <style>
         <%@include file="styles/register.css" %>
-    </style>
 
+    </style>
 </head>
 <body>
 <header>
     <nav class="top-menu">
         <ul class="menu-main">
-            <li class="left-item"><a href="?lang=en">EN</a></li>
-            <li class="left-item"><a href="?lang=ru">RU</a></li>
-            <li class="right-item"><a href=""></a></li>
+            <li class="left-item"><a href="${pageContext.request.contextPath}/registration?lang=en">EN</a></li>
+            <li class="left-item"><a href="${pageContext.request.contextPath}/registration?lang=ru">RU</a></li>
+            <li class="right-item"><a href="${pageContext.request.contextPath}/login"><fmt:message key="main.menu.book"/></a></li>
 
         </ul>
     </nav>
@@ -40,19 +38,19 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-            <form class="main-form first" action="/registration" method="post">
-                <h2>Sign Up</h2>
+            <form class="main-form first" action="${pageContext.request.contextPath}/registration" method="post">
+                <h2><fmt:message key="registration.signup"/></h2>
                 <div class="form-group">
-                    <label for="name" class="control-label">First name</label>
+                    <label for="name" class="control-label"><fmt:message key="registration.username"/></label>
                     <input id="name" class="form-control" name="username"/>
-                    <span th:errors="*{name}"></span>
+                    <span errors="*{name}"></span>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="control-label">E-mail</label>
+                    <label for="email" class="control-label"><fmt:message key="registration.email"/></label>
                     <input id="email" class="form-control" name="email"/>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="control-label">Password</label>
+                    <label for="password" class="control-label"><fmt:message key="registration.password"/></label>
                     <input id="password" class="form-control" type="password"
                            name="password"/>
                 </div>
@@ -65,9 +63,10 @@
                 </c:if>
 
                 <div class="form-group">
-                    <button id="button" type="submit" class="btn btn-success">Register</button>
-                    <span>Already registered? <a href="/login">Login
-        here</a></span>
+                    <button id="button" type="submit" class="btn btn-success"><fmt:message
+                            key="registration.register"/></button>
+                    <span><fmt:message key="registration.span.login"/> </span> <a href="${pageContext.request.contextPath}/login"> <fmt:message
+                        key="registration.login"/></a>
                 </div>
 
             </form>

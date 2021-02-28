@@ -13,41 +13,31 @@
 <fmt:setBundle basename="messages"/>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="admin.title"/></title>
     <style>
         <%@include file="styles/login.css" %>
     </style>
 </head>
 <body style="'background-color: #f3efe8;'">
 <header>
-
+    <nav class="top-menu">
+        <ul class="menu-main">
+            <li class="left-item"><a href="${pageContext.request.contextPath}/admin?lang=en">EN</a></li>
+            <li class="left-item"><a href="${pageContext.request.contextPath}/admin?lang=ru">RU</a></li>
+            <li class="right-item"><a href="${pageContext.request.contextPath}/admin"> <fmt:message key="main.menu.cabinet"/></a></li>
+        </ul>
+    </nav>
 </header>
 <div class="container">
     <section class="filterBar">
         <div class="search-ui">
-            <label for="search">Search</label>
+            <label for="search"><fmt:message key="cabinet.search"/></label>
             <div class="search-container">
                 <form action="">
-                    <input class="search-input" type="text" placeholder="Search by user name or email address..."
+                    <input class="search-input" type="text" placeholder=""
                            name="search">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
-            </div>
-        </div>
-        <div class="filter-ui">
-            <label for="filters">Show me</label>
-            <div class="styled-select">
-                <select name="accountStatus" id="filters">
-                    <option value="active">Everyone</option>
-                    <optgroup label="Audience">
-                        <option value="commenters">Commenters</option>
-                    </optgroup>
-                    <optgroup label="Organization">
-                        <option value="admins">Admins</option>
-                        <option value="moderators">Moderators</option>
-                        <option value="banned">Staff</option>
-                    </optgroup>
-                </select>
             </div>
         </div>
     </section>
@@ -55,17 +45,17 @@
     <table>
         <tr class="table-header">
 
-            <th>Email Address</th>
-            <th>Check in</th>
-            <th>Check out</th>
-            <th>Number of guests</th>
-            <th>Room</th>
-            <th class="statusHead">Status</th>
-            <th>Confirmation</th>
+            <th><fmt:message key="cabinet.username"/></th>
+            <th><fmt:message key="cabinet.checkin"/></th>
+            <th><fmt:message key="cabinet.checkout"/></th>
+            <th class="roleHead"><fmt:message key="cabinet.people"/></th>
+            <th class="statusHead"><fmt:message key="cabinet.room"/></th>
+            <th class="statusHead"><fmt:message key="cabinet.status"/></th>
+            <th class="statusHead"><fmt:message key="cabinet.payment"/></th>
         </tr>
         <c:forEach items="${allReservations}" var="reservation">
             <tr>
-                <form action="/admin/update?id=${reservation.getId()}" method="post">
+                <form action="${pageContext.request.contextPath}/admin/update?id=${reservation.getId()}" method="post">
                     <td class="email">
                         <a href="mailto:email@email.com">
                             <c:out value="${reservation.getUserByUserId().getEmail()}"/>
@@ -110,8 +100,8 @@
 
     </table>
 </div>
-<form action="/logout" method="post">
-    <input type="submit" value="LOG OUT">
+<form action="${pageContext.request.contextPath}/logout" method="post">
+    <input type="submit" value=<fmt:message key="cabinet.logout"/>>
 </form>
 </body>
 </html>
